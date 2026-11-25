@@ -1,0 +1,196 @@
+
+@font-face {
+    font-family: 'Estedad';
+    src: url('/static/fonts/Estedad.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+:root {
+    --navy: #172B45;
+    --gold: #C6A052;
+    --light-gold: #E7BD62;
+    --background: #F4F1E9;
+    --white: #FFFFFF;
+    --text: #263445;
+}
+
+/* General */
+body {
+    font-family: 'Estedad', sans-serif;
+    background-color: var(--white);
+    color: var(--text);
+    direction: rtl;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.site-navbar {
+    background-color: var(--navy);
+    padding: 15px 0;
+}
+
+.site-navbar .navbar-brand {
+    color: var(--light-gold);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.brand-python {
+    color: var(--white);
+}
+
+.brand-book {
+    color: var(--light-gold);
+}
+
+.site-navbar .nav-link {
+    color: var(--white);
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.site-navbar .nav-link:hover {
+    color: var(--light-gold);
+}
+
+.site-navbar .navbar-toggler {
+    border-color: var(--gold);
+}
+
+.site-navbar .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* Main */
+main {
+    flex: 1;
+    min-height: 65vh;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: var(--white);
+}
+
+/* Books Section */
+.books-section {
+    background-color: var(--background);
+    padding: 30px;
+    border-radius: 12px;
+}
+
+/* Book Cards */
+.book-card {
+    background-color: var(--white);
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(23, 43, 69, 0.12);
+}
+
+.book-card img,
+.book-cover {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    background-color: #F8F6F0;
+    padding: 15px;
+}
+
+.book-card .card-body {
+    padding: 20px;
+}
+
+.book-card .card-title {
+    color: var(--navy);
+    font-weight: 800;
+}
+
+.book-card .book-price {
+    color: #A47B2C;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* Book Detail Button */
+.btn-book-detail {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--navy);
+    color: var(--light-gold);
+    border: 1px solid var(--navy);
+    border-radius: 8px;
+    padding: 9px 20px;
+    transition: 0.3s;
+}
+
+.btn-book-detail:hover {
+    background-color: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 35px 0 20px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.footer-content h5 {
+    color: var(--light-gold);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.footer-content p {
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.footer-divider {
+    width: 70px;
+    height: 2px;
+    background-color: var(--gold);
+    margin: 20px auto;
+}
+
+.footer-content .copyright {
+    color: var(--light-gold);
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+
+/* Disable movement on parent sections */
+.hero,
+.books-section,
+main,
+.container,
+.row {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Only individual book cards can move */
+.book-card {
+    transform: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #C6A052 !important;
+    border-radius: 12px;
+}
+
+.book-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 20px rgba(23, 43, 69, 0.12);
+}

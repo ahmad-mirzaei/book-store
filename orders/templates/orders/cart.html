@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">سبد خرید</h2>
+
+    {% if cart %}
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>کتاب</th>
+                        {% comment %} <th>قیمت</th> {% endcomment %}
+                        <th>تعداد</th>
+                        <th>قیمت کل</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td>{{ item.book.title }}</td>
+                        {% comment %} <td>{{ item.price }} تومان</td> {% endcomment %}
+                        <td>
+    <form method="POST"
+            action="{% url 'cart_update' item.book.id %}"
+            class="d-flex justify-content-center gap-2">
+
+        {% csrf_token %}
+
+        <input
+            type="number"
+            name="quantity"
+            value="{{ item.quantity }}"
+            min="1"
+            max="{{ item.book.stock }}"
+            class="form-control"
+            style="width: 80px;"
+        >
+
+        <button type="submit" class="btn btn-primary btn-sm">
+            بروزرسانی قیمت
+        </button>
+    </form>
+</td>
+                        <td>{{ item.total_price }} تومان</td>
+                        <td>
+                            <form method="POST"
+                                action="{% url 'cart_remove' item.book.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger btn-sm">
+                                    حذف
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+
+<div class="d-flex justify-content-end mt-4">
+    <div class="border rounded p-3 text-center"
+        style="min-width: 220px;">
+        <strong>مجموع قیمت ها</strong>
+        <h5 class="mt-2 mb-0">
+            {{ cart.get_total_price }} تومان
+        </h5>
+    </div>
+</div>
+    {% else %}
+        <p>سبد خرید شما خالی است.</p>
+    {% endif %}
+
+            <div class="d-flex justify-content-end">
+            <a href="{% url 'home' %}"
+            class="btn btn-outline-danger mt-3">
+            صفحه قبلی
+            </a>
+        </div>
+</div>
+{% endblock %}

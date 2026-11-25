@@ -1,0 +1,108 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+
+    <div class="row g-5">
+
+        <div class="col-md-5">
+
+            {% if book.cover %}
+                <img
+                    src="{{ book.cover.url }}"
+                    class="img-fluid rounded shadow-sm w-100"
+                    alt="{{ book.title }}"
+                    style="max-height: 500px; object-fit: contain;"
+                >
+            {% else %}
+                <div class="bg-light p-5 text-center">
+                    تصویری موجود نیست
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-7">
+
+            <span class="badge bg-secondary mb-3">
+                {{ book.category.name }}
+            </span>
+
+            <h1 class="fw-bold">{{ book.title }}</h1>
+
+            <h5 class="text-secondary mt-3">
+                نویسنده: {{ book.author }}
+            </h5>
+
+            <hr>
+
+            <h3 class="text-success my-4">
+                {{ book.price }} تومان
+            </h3>
+            <p>
+            موجودی:
+                {% if book.stock > 0 %}
+                    <span class="text-success">
+                        موجود ({{ book.stock }} عدد)
+                    </span>
+                {% else %}
+                    <span class="text-danger">ناموجود</span>
+                {% endif %}
+            </p>
+
+            <h5 class="mt-4">معرفی کتاب</h5>
+            <form method="POST" action="{% url 'cart_add' book.id %}">
+
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">تعداد</label>
+
+        <input
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+            max="{{ book.stock }}"
+            class="form-control"
+            style="max-width: 120px;"
+        >
+    </div>
+
+    <button
+        type="submit"
+        class="btn btn-danger w-100"
+        {% if book.stock == 0 %}disabled{% endif %}
+    >
+        افزودن به سبد خرید
+    </button>
+
+</form>
+
+            {% comment %} <p class="text-secondary">
+                {{ book.description|linebreaks }}
+            </p> {% endcomment %}
+
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'home' %}"
+            class="btn btn-outline-danger mt-3">
+            صفحه قبلی
+            </a>
+        </div>
+
+            {% comment %} <a href="{% url 'home' %}"
+                class="btn btn-outline-danger mt-3">
+                بازگشت  
+            </a> {% endcomment %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
