@@ -27,13 +27,10 @@ from .models import Book
 
 def home(request):
     books = Book.objects.filter(
-        is_active=True,
-        stock__gt=0
+        is_active=True
     ).order_by("-created_at")[:2]
 
-    return render(request, "books/home.html", {
-        "books": books
-    })
+    return render(request, "books/home.html", {"books": books})
 
 
 def book_detail(request, pk):
