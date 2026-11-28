@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name = "نام دسته بندی")
     description = models.TextField(blank=True)
     
     class Meta:
@@ -23,11 +23,12 @@ class Book(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
-        related_name="books"
+        related_name="books",
+        verbose_name = "دسته بندی",
     )
 
     title = models.CharField(max_length=200, verbose_name = "عنوان")
-    author = models.CharField(max_length=150)
+    author = models.CharField(max_length=150, verbose_name = "نویسنده")
 
     description = models.TextField()
 
@@ -41,7 +42,7 @@ class Book(models.Model):
     verbose_name="وزن کتاب (گرم)",
     )
 
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(default=0, verbose_name = "تعداد")
 
     cover = models.ImageField(
         upload_to="books/covers/",
