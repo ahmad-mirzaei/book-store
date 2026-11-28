@@ -20,12 +20,13 @@ class BookAdmin(admin.ModelAdmin):
         "author",
         "category",
         "price",
+        "weight",
         "stock",
         "is_active",
     )
 
     list_filter = ("category", "is_active")
     search_fields = ("title", "author")
-    list_editable = ("price", "stock", "is_active")
+    list_editable = ("price", "weight", "stock", "is_active")
 
     inlines = [BookImageInline]

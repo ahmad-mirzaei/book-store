@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Local apps
-    'books',
-    'orders',
+    'books.apps.BooksConfig',
+    'orders.apps.OrdersConfig',
     'payments',
 
 ]

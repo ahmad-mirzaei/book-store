@@ -41,9 +41,9 @@ class Order(models.Model):
 
     postal_code = models.CharField(
         max_length=10,
-        blank=True,
         verbose_name="کد پستی"
     )
+    
     tracking_code = models.CharField(
         max_length=12,
         default=generate_tracking_code,
@@ -58,6 +58,10 @@ class Order(models.Model):
         choices=STATUS_CHOICES,
         default="pending"
     )
+
+    class Meta:
+        verbose_name = "سفارش"
+        verbose_name_plural = "سفارش‌ها"
 
     def __str__(self):
         return f"سفارش شماره {self.id}"

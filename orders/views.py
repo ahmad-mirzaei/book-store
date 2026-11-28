@@ -30,7 +30,12 @@ def cart_add(request, book_id):
 
     current_quantity = cart.cart.get(str(book.id), {}).get("quantity", 0)
 
-    if quantity < 1 or current_quantity + quantity > book.stock:
+    if quantity < 1:
+        messages.error(request, "تعداد کتاب باید حداقل ۱ باشد.")
+        return redirect("book_detail", pk=book.id)
+
+    if current_quantity + quantity > book.stock:
+        messages.error(request, "تعداد درخواستی بیشتر از موجودی کتاب است.")
         return redirect("book_detail", pk=book.id)
 
     cart.add(book=book, quantity=quantity)
@@ -66,7 +71,12 @@ def cart_update(request, book_id):
     except (TypeError, ValueError):
         return redirect("cart_detail")
 
-    if quantity < 1 or quantity > book.stock:
+    if quantity < 1:
+        messages.error(request, "تعداد کتاب باید حداقل ۱ باشد.")
+        return redirect("cart_detail")
+
+    if quantity > book.stock:
+        messages.error(request, "تعداد درخواستی بیشتر از موجودی کتاب است.")
         return redirect("cart_detail")
 
     if str(book_id) not in cart.cart:
